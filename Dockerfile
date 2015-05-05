@@ -2,7 +2,7 @@
 FROM ubuntu:14.04.2
 MAINTAINER Jack MIN <jack.min@ericsson.com>
 COPY sources.list.cn /etc/apt/sources.list
-RUN apt-get update && apt-get install -y build-essential git vim exuberant-ctags cscope openssh-server autoconf gdb gdb-doc
+RUN apt-get update && apt-get install -y build-essential git vim exuberant-ctags cscope openssh-server autoconf gdb gdb-doc linux-tools-`uname -r`
 RUN mkdir /var/run/sshd
 RUN echo 'root:r00tme' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
