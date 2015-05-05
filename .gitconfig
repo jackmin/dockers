@@ -1,0 +1,19 @@
+[user]
+	name = Jack MIN
+	email = jack.min@ericsson.com
+[color]
+	ui = true
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(bold yellow)%d%Creset %s %C(bold blue)<%an>,%cr%Creset' --abbrev-commit --decorate
+	ll = log --stat --abbrev-commit --oneline --decorate --all --graph
+	ltg = describe --tags --abbrev=0
+	la = !git config -l | grep alias | cut -c 7-
+    ld = log -u -1
+    subup = submodule update --recursive
+    graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format: %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+    new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+	pb = pull
+[help]
+	autocorrect = 50
+[core]
+	editor = vim
