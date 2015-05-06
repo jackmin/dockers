@@ -2,7 +2,8 @@
 FROM ubuntu:14.04.2
 MAINTAINER Jack MIN <jack.min@ericsson.com>
 COPY sources.list.cn /etc/apt/sources.list
-RUN apt-get update && apt-get install -y build-essential git vim exuberant-ctags cscope openssh-server autoconf gdb gdb-doc
+RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y pkg-config:i386 libgtk2.0-dev:i386
+RUN apt-get install -y gcc-multilib g++-multilib cpp g++ build-essential git vim exuberant-ctags cscope openssh-server autoconf gdb gdb-doc
 RUN mkdir /var/run/sshd
 RUN echo 'root:r00tme' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
