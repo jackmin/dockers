@@ -13,7 +13,10 @@ RUN chsh -s /bin/zsh root
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 #
 ENV NOTVISIBLE "in users profile"
+ENV TERM "xterm-256color"
 RUN echo "export VISIBLE=now" >> /etc/profile
+RUN locale-gen "en_US.UTF-8" && dpkg-reconfigure locales
+RUN echo "Asia/Shanghai" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
 COPY .vimrc /root/
 #COPY .git-prompt.sh /root/
