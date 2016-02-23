@@ -2,10 +2,12 @@
 FROM ubuntu:latest
 MAINTAINER Jack MIN <jack.min@ericsson.com>
 COPY sources.list.elx /etc/apt/sources.list
-RUN apt-get update && apt-get install -y build-essential git vim exuberant-ctags cscope openssh-server autoconf gdb gdb-doc
+RUN apt-get update && apt-get install -y build-essential git vim exuberant-ctags cscope openssh-server autoconf gdb gdb-doc zsh-static
 RUN mkdir /var/run/sshd
 RUN echo 'root:r00tme' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN chsh -s /bin/zsh root
+#RUN wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O /root/install.sh && chmod +x /root/install.sh && /root/install.sh && echo $?
 
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
@@ -14,11 +16,13 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 COPY .vimrc /root/
-COPY .git-prompt.sh /root/
-COPY .prompt.sh /root/
+#COPY .git-prompt.sh /root/
+#COPY .prompt.sh /root/
 COPY .gitconfig /root/
+COPY install.sh /root/
+RUN chmod +x /root/install.sh && /root/install.sh
 
-RUN echo ". ~/.prompt.sh" >> /root/.bashrc
+#RUN echo ". ~/.prompt.sh" >> /root/.bashrc
 
 #
 EXPOSE 22
