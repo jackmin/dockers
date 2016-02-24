@@ -22,8 +22,11 @@ RUN echo "Asia/Shanghai" > /etc/timezone && dpkg-reconfigure -f noninteractive t
 #COPY .git-prompt.sh /root/
 #COPY .prompt.sh /root/
 COPY .gitconfig /root/
+
 COPY install.sh /root/
 RUN chmod +x /root/install.sh && /root/install.sh
+RUN sed -i 's/ZSH_THEME=.*/ZSH_THEME="kolo"/g' /root/.zshrc
+
 RUN git clone https://github.com/amix/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
 COPY my_configs.vim /root/.vim_runtime/
