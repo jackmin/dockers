@@ -1,0 +1,2 @@
+colorscheme peaksea
+set nu

@@ -18,12 +18,15 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN locale-gen "en_US.UTF-8" && dpkg-reconfigure locales
 RUN echo "Asia/Shanghai" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
-COPY .vimrc /root/
+#COPY .vimrc /root/
 #COPY .git-prompt.sh /root/
 #COPY .prompt.sh /root/
 COPY .gitconfig /root/
 COPY install.sh /root/
 RUN chmod +x /root/install.sh && /root/install.sh
+RUN git clone https://github.com/amix/vimrc.git ~/.vim_runtime
+RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
+COPY my_configs.vim /root/.vim_runtime/
 
 #RUN echo ". ~/.prompt.sh" >> /root/.bashrc
 
