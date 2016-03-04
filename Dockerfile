@@ -27,9 +27,10 @@ COPY install.sh /root/
 RUN chmod +x /root/install.sh && /root/install.sh
 RUN sed -i 's/ZSH_THEME=.*/ZSH_THEME="kolo"/g' /root/.zshrc
 
-RUN git clone https://github.com/amix/vimrc.git ~/.vim_runtime
+RUN git clone https://github.com/jackmin/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
-COPY my_configs.vim /root/.vim_runtime/
+RUN cp -vf ~/.vim_runtime/example/my_configs.vim.example ~/.vim_runtime/my_configs.vim
+#COPY my_configs.vim /root/.vim_runtime/
 
 #RUN echo ". ~/.prompt.sh" >> /root/.bashrc
 
